@@ -45,6 +45,6 @@ describe('saucedemo page', () =>{
         const cartPresence = await InventoryTC1.checkCartPresence()
         console.log(cartPresence);
         await expect(cartPresence).toEqual(true)      
-        //await browser.pause(2000)
+        await browser.pause(2000)
     })
 })
