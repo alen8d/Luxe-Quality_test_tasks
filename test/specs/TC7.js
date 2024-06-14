@@ -3,20 +3,21 @@ import { expect } from '@wdio/globals'
 import LoginTC1 from '../pageobjects/login_TC1.page.js';
 import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
 
-
-describe('saucedemo page', () =>{
-    let arrLinks;
-    it('should login the user with correct credentials', async () =>{
-    await browser.url('https://www.saucedemo.com')
+before('', async() =>{
+    await browser.url('https://www.saucedemo.com');
     const username = 'standard_user';
     await LoginTC1.setUserName(username);
-    await browser.pause(0)
+    await browser.pause(0);
     const password = 'secret_sauce';
     await LoginTC1.setPassword(password);
-    await browser.pause(0)
+    await browser.pause(0);
     await LoginTC1.clickLoginButton();
-    })
-    
+})
+afterEach('', async() =>{
+    await browser.pause(1000);
+})
+describe('saucedemo page', () =>{
+    let arrLinks;
     it ('should get list of the links',async() =>{
         //get list of links
         arrLinks = await InventoryTC1.getLinksList();

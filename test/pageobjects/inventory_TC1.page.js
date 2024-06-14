@@ -3,7 +3,7 @@ import { $ } from '@wdio/globals'
 class InventoryTC1{
 
     get product(){
-        return $('.inventory_item')
+        return $('.inventory_item')  //selector = class name
     }
     async checkProductPresence (){
          return this.product.isDisplayed();
@@ -39,7 +39,8 @@ class InventoryTC1{
         (await this.logoutButton).click();
     }
     get addtoCartButton(){
-        return $('#add-to-cart-sauce-labs-backpack')
+        return $('//*[contains(text(),"add-to-cart")]');
+        //return $('#add-to-cart')
         //return $('.btn btn_primary btn_small btn_inventory ')
     }
     async clickAddtoCartButton(){
@@ -56,9 +57,9 @@ class InventoryTC1{
         //return $('.shopping_cart_badge')
     }
     async checkProductNumber(){
-        const value = (await this.productNumber).getText();
-        if(value=="") return 0;
-            else return value 
+        return (await this.productNumber).getText();
+        // if(value=="") return 0;
+        //     else return value 
     }
     get sortSelectorButton(){
         return $('.product_sort_container')
@@ -73,10 +74,10 @@ class InventoryTC1{
         return await this.selectorOptions;
     }
     get sortedItems(){
-        return $$('.inventory_item_name')
+        return $$('.inventory_item_name');
     }
     async getSortedItems(){
-        return await this.sortedItems;
+        return (await this.sortedItems);
     }
     get selectorLinks(){
         return $$('a[target="_blank"]')
@@ -116,7 +117,18 @@ class InventoryTC1{
             }
         //}
     }
-    
+    get azSelector(){
+        return $('option[value="za"]');
+    }
+    async clickAzSelector(){
+        (await this.azSelector).click();
+    } 
+    get zaSelector(){
+        return $('option[value="za"]');
+    }
+    async clickZaSelector(){
+        (await this.zaSelector).click();
+    } 
 }
 
 export default new InventoryTC1();
