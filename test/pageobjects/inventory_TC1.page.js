@@ -118,7 +118,7 @@ class InventoryTC1{
         //}
     }
     get azSelector(){
-        return $('option[value="za"]');
+        return $('option[value="az"]');
     }
     async clickAzSelector(){
         (await this.azSelector).click();
@@ -128,6 +128,24 @@ class InventoryTC1{
     }
     async clickZaSelector(){
         (await this.zaSelector).click();
+    } 
+    get lohiSelector(){
+        return $('option[value="lohi"]');
+    }
+    async clickLowHighSelector(){
+        (await this.lohiSelector).click();
+    }
+    get hiloSelector(){
+        return $('option[value="hilo"]');
+    }
+    async clickHighLowSelector(){
+        (await this.hiloSelector).click();
+    }
+    get priceSortedItems(){
+        return $$('.inventory_item_price');
+    }
+    async getPriceSortedItems(){
+        return (await this.priceSortedItems);
     } 
 }
 

@@ -23,59 +23,80 @@ describe('saucedemo page', () =>{
     it('should click on AZ sort selector', async() =>{
         const azSelector = await InventoryTC1.clickAzSelector();
     })
-    it('should check Products are sorted', async() =>{
-        //var productElements = await InventoryTC1.getSortedItems();
-        const productElements = await browser.$$('.inventory_item_name');
-        const productNames = [];
-        //console.log('product list = '+productList);
-        console.log(productElements.length);
+    it('should check Products are sorted like A-Z', async() =>{
+        const productElements = await InventoryTC1.getSortedItems();
+        //create array
+        var productNames = [];
+        //filling the array with products
                 for (const productElement of productElements){
-                    //const firstSortedItem = productElements[j];
-                    const productName = await browser.$$('.inventory_item_name').getText();
-                    console.log('One Sorted Item :' +productName);
+                    const productName = await productElement.getText();
                     productNames.push(productName);
-                    console.log('Menu Sorted Item :' +productNames);
                 }
-        const sortedProductList = Array(firstSortedItemText).sort();
-        await expect(firstSortedItemText).toEqual(sortedProductList);
+                var sortedProductNames = productNames;
+                productNames = productNames.toString();
+                console.log('productNames :' +productNames);
+                //sort the array and convert to string for comparing
+                sortedProductNames = sortedProductNames.sort().toString();
+                console.log('sortedProductNames :' +sortedProductNames);
+                await expect(productNames).toEqual(sortedProductNames);
     })
-    xit('should click on ZA sort selector', async() =>{
+    it('should click on ZA sort selector', async() =>{
         const zaSelector = await InventoryTC1.clickZaSelector();
     })
-    xit('should check Products are sorted', async() =>{
-    
-    })
-    xit('should check all sort type in cycle', async() =>{
-        //get list of sort type
-        const arrSelectors = await InventoryTC1.getSelectorList();
-        //enter to the cycle
-        for (let i=0; i<arrSelectors.length; i++){
-                const sortItem = arrSelectors[i];
-                const sortItemText = await sortItem.getText();
-                console.log(`Menu Item ${i + 1}: ${sortItemText}`);
-                // Perform click on the menu item, e.g., click
-                await sortItem.click();
-                
-                //get sorted items list (text) and put in first array
-                const firstArray = await InventoryTC1.getSortedItems();
-                console.log(firstArray.length);
-                for (let j=0;j<firstArray.length;j++){
-                    const firstSortedItem = firstArray[j];
-                    const firstSortedItemText = await firstSortedItem.getText();
-                    console.log(`Menu Sorted Item ${j + 1}: ${firstSortedItemText}`);
+    it('should check Products are sortedas Z-A', async() =>{
+        const productElements = await InventoryTC1.getSortedItems();
+        var productNames = [];
+                for (const productElement of productElements){
+                    const productName = await productElement.getText();
+                    productNames.push(productName);
                 }
-                //sort this array by sortItemText and put in second array
-                
-                //compare firstArray with secondArray. Expect they are the same
-            }
-        //console.log("selectors = "+arrSelectors)
+                var sortedProductNames = productNames;
+                productNames = productNames.toString();
+                console.log('productNames :' +productNames);
+                sortedProductNames = sortedProductNames.sort();
+                sortedProductNames = sortedProductNames.reverse().toString();
+                console.log('sortedProductNames :' +sortedProductNames);
+                await expect(productNames).toEqual(sortedProductNames);
     })
-    xit('should click on the second of Sorting selectors', async() =>{
-        await InventoryTC1.clickSelectorButton();
+    it('should click on the third of Sorting selectors Low to high Price', async() =>{
+        await InventoryTC1.clickLowHighSelector();
     })
     //begin cycle for()
-    xit('should check Products are sorted', async() =>{
+    it('should check Products are sorted from Low to High Price', async() =>{
+        const productElements = await InventoryTC1.getPriceSortedItems();
+        var productNames = [];
+                for (const productElement of productElements){
+                    var productName = await productElement.getText();
+                    productName = productName.replace(/\$/g, '');
+                    productName = parseFloat(productName, 10);
+                    productNames.push(productName);
+                }
+                var sortedProductNames = productNames;
+                productNames = productNames.toString();
+                 console.log('productNames :' +productNames);
+                sortedProductNames = sortedProductNames.sort((a,b) =>a-b).toString();
+                 console.log('sortedProductNames :' +sortedProductNames);
+                await expect(productNames).toEqual(sortedProductNames);
     })
-
+    it('should click on the fourth of Sorting selectors Price high to low', async() =>{
+        await InventoryTC1.clickHighLowSelector();
+    })
+    it('should check Products are sorted from high to low price', async() =>{
+        const productElements = await InventoryTC1.getPriceSortedItems();
+        var productNames = [];
+            for (const productElement of productElements){
+                var productName = await productElement.getText();
+                productName = productName.replace(/\$/g, '');
+                productName = parseFloat(productName, 10);
+                productNames.push(productName);
+            }
+                var sortedProductNames = productNames;
+                productNames = productNames.toString();
+                 console.log('productNames :' +productNames);
+                sortedProductNames = sortedProductNames.sort((a,b) =>b-a).toString();
+                 console.log('sortedProductNames :' +sortedProductNames);
+                await expect(productNames).toEqual(sortedProductNames);
+        
+    })
     
 })
