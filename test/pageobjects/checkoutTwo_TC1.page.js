@@ -14,6 +14,13 @@ class CheckoutTwoTC1{
     async clickBackHomeButton(){
         (await this.backHomeButton).click();
     }
+    //for TC8
+    get totalPrice(){
+        return $('.summary_total_label')
+    }
+    async getTotalPrice(){
+        return await this.totalPrice.getText();
+    }
 }
 
 export default new CheckoutTwoTC1();

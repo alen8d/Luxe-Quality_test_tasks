@@ -6,6 +6,7 @@ import CartTC1 from '../pageobjects/cart_TC1.page.js';
 import CheckoutOneTC1 from '../pageobjects/checkoutOne_TC1.page.js';
 import CheckoutTwoTC1 from '../pageobjects/checkoutTwo_TC1.page.js';
 import CheckoutCompleteTC1 from '../pageobjects/checkoutComplete_TC1.page.js';
+import checkoutTwo_TC1Page from '../pageobjects/checkoutTwo_TC1.page.js';
 
 before('', async() =>{
     await browser.url('https://www.saucedemo.com');
@@ -21,46 +22,62 @@ afterEach('', async() =>{
     await browser.pause(1000);
 })
 describe('saucedemo page', () =>{
-    //let ptoductNumber;
-    xit('should check Number near the cart at the top right before adding product', async() =>{
-        browser.productNumber = await InventoryTC1.checkProductNumber()
-        
-        // const value1 = '1';
-        // //const value = value1.toString();
-        console.log("valueBefore = "+productNumber);
-        // await expect(productNumber).toEqual(value1)
+    var number;
+    var productName;
+    var productPrice;
+    xit('should define start quantity of products in the cart', async() =>{
+        var productNumber = await InventoryTC1.checkProductNumber();
+        if(productNumber=="") {number=0;
+        }else {number = parseInt(productNumber, 10);
+        }
     })
-    it('should click on the "Add to cart" button near any product', async() =>{
-        await InventoryTC1.clickAddtoCartButton();
+    xit('should click on the "Add to cart" button near any product and save the name of added product', async() =>{
+        productName = await InventoryTC1.clickAddtoCartButton();
+        // console.log('11name of the added product = '+productName);
     })
-    xit('should check Number near the cart at the top right increase by 1', async() =>{
-        const productNumberNew = await InventoryTC1.checkProductNumber();
-        const value1 = '1';
-        await expect(productNumberNew).toEqual(value1);
+    it('should click on the "Add to cart" button near any product and save the name of added product', async() =>{
+        const [ productName1, productPrice1 ] = await InventoryTC1.clickAddtoCartButton_1();
+        productName = productName1;
+        productPrice = productPrice1;
+        // console.log('11name of the added product = '+productName);
+        // console.log('11price of the added product = '+productPrice);
+    })
+    
+    it('should check Number near the cart at the top right increase by 1', async() =>{
+        var newNumber;
+        var productNumber = await InventoryTC1.checkProductNumber();
+        if(productNumber=="") {newNumber=0;
+        } else {newNumber = parseInt(productNumber, 10);
+        }var difference = newNumber-number;
+        // console.log('difference = '+difference);
+        await expect(difference).not.toEqual(0);
     })
     it('should Click on the "Cart" button at the top right corner', async() =>{
-        await InventoryTC1.clickCartButton(); 
+        await InventoryTC1.clickCartButton();    
     })
-    xit('should check cart page is displayed', async() =>{
+    it('should check cart page is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
     })
-    xit('', async() =>{
-
+    it('check product are the same as was added at step 1', async() =>{
+        var newProductName = await CartTC1.getProductName();
+        // console.log('22productName = '+productName);
+        // console.log('22newProductName = '+newProductName);
+        await expect(newProductName).toEqual(productName);
     })
     it('should click on the checkout button', async() =>{
         await CartTC1.clickCheckoutButton(); 
     })
-    xit('should check checkout form is displayed', async() =>{
+    it('should check checkout form is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-one.html');
     })
     it('should Fill the "First Name" field with valid data', async() =>{
         const firstName = await CheckoutOneTC1.generateRandomName();
-        console.log('first name first time = '+firstName);
+        // console.log('first name first time = '+firstName);
         await CheckoutOneTC1.setFirstName(firstName);
     })
     it('should check data is entered to the firstName field', async () =>{
         const value=await CheckoutOneTC1.getFirstName();
-        console.log(value.length);
+        // console.log(value.length);
         await expect(value).not.toHaveLength(0);
     })
     it('should Fill the "Last Name" field with valid data', async() =>{
@@ -77,9 +94,8 @@ describe('saucedemo page', () =>{
         const postalCode = await CheckoutOneTC1.generateRandomPostalCode();
         await CheckoutOneTC1.setPostalCode(postalCode);
     })
-    it('should check data is entered to the lastName field', async () =>{
+    it('should check data is entered to the Postal code field', async () =>{
         const value=await CheckoutOneTC1.getPostalCode();
-        // console.log(value.length);
         await expect(value).not.toHaveLength(0);
     })
     it('should click on the continue button', async() =>{
@@ -87,6 +103,19 @@ describe('saucedemo page', () =>{
     })
     it('should check Overview page is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
+    })
+    it('check product are the same as was added at step 1', async() =>{
+        var newProductName = await CartTC1.getProductName();
+        // console.log('22productName = '+productName);
+        // console.log('22newProductName = '+newProductName);
+        await expect(newProductName).toEqual(productName);
+    })
+    it('check Total price = price of products from step 1', async() =>{
+        var totalPrice = await checkoutTwo_TC1Page.getTotalPrice();
+        totalPrice = totalPrice.replace(/Total: /g, '');
+        // console.log('total price = '+totalPrice);
+        // console.log('product price = '+productPrice);
+        await expect(totalPrice).toEqual(productPrice);
     })
     it('should click on the finish button', async() =>{
         await CheckoutTwoTC1.clickFinishButton();    

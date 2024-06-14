@@ -47,6 +47,13 @@ class InventoryTC1{
         (await this.addtoCartButton).click();
         return (await browser.$('.inventory_item_name')).getText();
     }
+    
+    async clickAddtoCartButton_1(){
+        (await this.addtoCartButton).click();
+        const productName = await browser.$('.inventory_item_name').getText();
+        const productPrice = await browser.$('.inventory_item_price').getText();
+        return [ productName, productPrice ];
+    }
     get cartButton(){
         return $('#shopping_cart_container')
     }

@@ -5,7 +5,7 @@ class CheckoutCompleteTC1{
 //check appearence of Success message when order was payed TC8
 get successMessage(){
     //return $('.complete-header')
-    return $("//*[contains(text(),'Thank you for your order!!')]")
+    return $("//*[contains(text(),'Thank you for your order!')]")
 }
 async getSuccessMessage(){
     return await this.successMessage;
