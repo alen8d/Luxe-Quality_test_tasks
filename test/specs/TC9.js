@@ -34,9 +34,6 @@ describe('saucedemo page', () =>{
     it('should check User is located on the "Cart" Page and if yes check if there is the text "Cart is empty"', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
         await browser.pause(1000);
-        //check the element with text "Cart is empty" is present on the page
-    //     const value = await CartTC1.getCartErrorMessage();
-    //     await expect(value).toBePresent();
     })
     it('should check if there is the text "Cart is empty"', async() =>{
         const value = await CartTC1.getCartErrorMessage();

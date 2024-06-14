@@ -94,9 +94,8 @@ describe('saucedemo page', () =>{
     it('should check Checkout complete page is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
     })
-    it('should check Success message "Thank you for your order" are displayed', async() =>{
+    it('should check Success message "Thank you for your order!" are displayed', async() =>{
         var value = await CheckoutCompleteTC1.getSuccessMessage();
-        console.log('Success message = '+value);
         await expect(value).toBePresent();
     })
     it('should click on the Back Home button', async() =>{
@@ -111,7 +110,6 @@ describe('saucedemo page', () =>{
     })
     it('should check cart is empty', async() =>{
         const productNumber = await InventoryTC1.checkProductNumber();
-        // console.log("productNumber = "+productNumber);
         await expect(productNumber).toEqual("");
     })
 })

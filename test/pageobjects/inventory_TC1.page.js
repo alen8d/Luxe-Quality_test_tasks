@@ -39,12 +39,13 @@ class InventoryTC1{
         (await this.logoutButton).click();
     }
     get addtoCartButton(){
-        return $('//*[contains(text(),"add-to-cart")]');
+        return $('//*[contains(text(),"Add to cart")]');
         //return $('#add-to-cart')
         //return $('.btn btn_primary btn_small btn_inventory ')
     }
     async clickAddtoCartButton(){
         (await this.addtoCartButton).click();
+        return (await browser.$('.inventory_item_name')).getText();
     }
     get cartButton(){
         return $('#shopping_cart_container')
@@ -58,8 +59,6 @@ class InventoryTC1{
     }
     async checkProductNumber(){
         return (await this.productNumber).getText();
-        // if(value=="") return 0;
-        //     else return value 
     }
     get sortSelectorButton(){
         return $('.product_sort_container')
