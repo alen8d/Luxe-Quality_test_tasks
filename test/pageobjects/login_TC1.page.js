@@ -60,6 +60,18 @@ class LoginTC1{
     async getErrorMessage(){
         return (await this.errorMessage).getText();
     }
+
+    async loginFunction(userName, userPassword){
+        await browser.url('https://www.saucedemo.com');
+        const username = userName;
+        await this.setUserName(username);
+        await browser.pause(0);
+        const password = userPassword;
+        await this.setPassword(password);
+        await browser.pause(0);
+        await this.clickLoginButton();
+    
+    }
 }
 
 export default new LoginTC1();

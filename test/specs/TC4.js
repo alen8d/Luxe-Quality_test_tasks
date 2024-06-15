@@ -4,14 +4,7 @@ import LoginTC1 from '../pageobjects/login_TC1.page.js';
 import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
 
 before('', async() =>{
-    await browser.url('https://www.saucedemo.com');
-    const username = 'standard_user';
-    await LoginTC1.setUserName(username);
-    await browser.pause(0);
-    const password = 'secret_sauce';
-    await LoginTC1.setPassword(password);
-    await browser.pause(0);
-    await LoginTC1.clickLoginButton();
+    await LoginTC1.loginFunction('standard_user', 'secret_sauce');
 })
 afterEach('', async() =>{
     await browser.pause(1000);
