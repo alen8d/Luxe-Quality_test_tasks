@@ -1,31 +1,31 @@
 import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
-import LoginTC1 from '../pageobjects/login_TC1.page.js';
-import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
-import CartTC1 from '../pageobjects/cart_TC1.page.js';
+import Login from '../pageobjects/login.page.js';
+import Inventory from '../pageobjects/inventory.page.js';
+import Cart from '../pageobjects/cart.page.js';
 
-before('', async() =>{
-    await LoginTC1.loginFunction('standard_user', 'secret_sauce');
+before('precondition - login', async() =>{
+    await Login.loginFunction('standard_user', 'secret_sauce');
 })
 afterEach('', async() =>{
     await browser.pause(1000);
 })
-describe('saucedemo page', () =>{
+describe('Saving the card after logout ', () =>{
     var number;
     var productName;
     it('should define start quantity of products in the cart', async() =>{
-        var productNumber = await InventoryTC1.checkProductNumber();
+        var productNumber = await Inventory.checkProductNumber();
         if(productNumber=="") {number=0;
         }else {number = parseInt(productNumber, 10);
         }
     })
     it('should click on the "Add to cart" button near any product and save the name of added product', async() =>{
-        productName = await InventoryTC1.clickAddtoCartButton();
+        productName = await Inventory.clickAddtoCartButton();
         // console.log('11name of the added product = '+productName);
     })
     it('should check Number near the cart at the top right increase by 1', async() =>{
         var newNumber;
-        var productNumber = await InventoryTC1.checkProductNumber();
+        var productNumber = await Inventory.checkProductNumber();
         if(productNumber=="") {newNumber=0;
         } else {newNumber = parseInt(productNumber, 10);
         }var difference = newNumber-number;
@@ -33,68 +33,62 @@ describe('saucedemo page', () =>{
         await expect(difference).not.toEqual(0);
     })
     it('should Click on the "Cart" button at the top right corner', async() =>{
-        await InventoryTC1.clickCartButton();    
+        await Inventory.clickCartButton();    
     })
     it('check product is added to cart ', async() =>{
-        var newProductName = await CartTC1.getProductName();
+        var newProductName = await Cart.getProductName();
         // console.log('22productName = '+productName);
         // console.log('22newProductName = '+newProductName);
         await expect(newProductName).toEqual(productName);
     })
     it('should click on the "Burger" button at the top left corner', async() =>{
-        await InventoryTC1.clickBurgerButton();
+        await Inventory.clickBurgerButton();
     })
     it('should check Burger Menu is expanded', async() =>{
-        const bMenuPresence = await InventoryTC1.checkBMenuPresence();
+        const bMenuPresence = await Inventory.checkBMenuPresence();
         await expect(bMenuPresence).toEqual(true);
     })
     it('should check 4 items are displayed', async() =>{
-        const fourItemsPresence = await InventoryTC1.checkFourItemsPresence();
+        const fourItemsPresence = await Inventory.checkFourItemsPresence();
         // console.log("VALUE = " + fourItemsPresence);
         await expect(fourItemsPresence).toEqual(4);
     })
     it('should click on the "Logout" button', async() =>{
-        await InventoryTC1.clickLogoutButton();
+        await Inventory.clickLogoutButton();
     })
     it('should check User are redirecred to the "Login" page', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/');
     })
     it('should check Username field is empty', async() =>{
-        const value=await LoginTC1.getUserName();
+        const value=await Login.getUserName();
         await expect(value).toHaveLength(0);
     })
     it('should check Password field is empty', async() =>{
-        const value=await LoginTC1.getPassword();
+        const value=await Login.getPassword();
         await expect(value).toHaveLength(0);
     })
     it('should login to the account with the same credentials', async () =>{
-        const username = 'standard_user';
-        await LoginTC1.setUserName(username);
-        await browser.pause(0);
-        const password = 'secret_sauce';
-        await LoginTC1.setPassword(password);
-        await browser.pause(0);
-        await LoginTC1.clickLoginButton();
+        await Login.loginFunction('standard_user', 'secret_sauce');
     })
     it('should check user is redirected to the inventory page', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
     })
     it('should check products are displayed', async() =>{
-        const productPresence = await InventoryTC1.checkProductPresence();
+        const productPresence = await Inventory.checkProductPresence();
         await expect(productPresence).toEqual(true);
     })
     it('should check cart is displayed', async() =>{
-        const cartPresence = await InventoryTC1.checkCartPresence();
+        const cartPresence = await Inventory.checkCartPresence();
         await expect(cartPresence).toEqual(true);
     })
     it('should Click on the "Cart" button at the top right corner', async() =>{
-        await InventoryTC1.clickCartButton();    
+        await Inventory.clickCartButton();    
     })
     it('should check Cart page is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
     })
     it('should check product are the same as was added at step 1', async() =>{
-        const productNameNew = await CartTC1.getProductName();
+        const productNameNew = await Cart.getProductName();
         // console.log('33productName = '+productName);
         // console.log('33productNameNew = '+productNameNew);
         await expect(productNameNew).toEqual(productName);

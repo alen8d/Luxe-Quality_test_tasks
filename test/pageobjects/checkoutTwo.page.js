@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class CheckoutTwoTC1{
+class CheckoutTwo{
 
     get finishButton(){
         return $('#finish')
@@ -23,4 +23,4 @@ class CheckoutTwoTC1{
     }
 }
 
-export default new CheckoutTwoTC1();
+export default new CheckoutTwo();

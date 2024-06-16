@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class CheckoutCompleteTC1{
+class CheckoutComplete{
 
 //check appearence of Success message when order was payed TC8
 get successMessage(){
@@ -13,4 +13,4 @@ async getSuccessMessage(){
 
 }
 
-export default new CheckoutCompleteTC1();
+export default new CheckoutComplete();

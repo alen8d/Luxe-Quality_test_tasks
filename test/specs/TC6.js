@@ -1,23 +1,24 @@
 import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
-import LoginTC1 from '../pageobjects/login_TC1.page.js';
-import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
+import Login from '../pageobjects/login.page.js';
+import Inventory from '../pageobjects/inventory.page.js';
 
-before('', async() =>{
-    await LoginTC1.loginFunction('standard_user', 'secret_sauce');
+before('precondition - login', async() =>{
+    await Login.loginFunction('standard_user', 'secret_sauce');
 })
 afterEach('', async() =>{
     await browser.pause(2000);
 })
-describe('saucedemo page', () =>{
+describe('Sorting', () =>{
+    var selectorNames = [];
     it('should click on the List of Sorting selectors', async() =>{
-        await InventoryTC1.clickSortSelectorButton();
+        await Inventory.clickSortSelectorButton();
     })
     it('should click on AZ sort selector', async() =>{
-        const azSelector = await InventoryTC1.clickAzSelector();
+        const azSelector = await Inventory.clickAzSelector();
     })
     it('should check Products are sorted like A-Z', async() =>{
-        const productElements = await InventoryTC1.getSortedItems();
+        const productElements = await Inventory.getSortedItems();
         //create array
         var productNames = [];
         //filling the array with products
@@ -34,10 +35,10 @@ describe('saucedemo page', () =>{
                 await expect(productNames).toEqual(sortedProductNames);
     })
     it('should click on ZA sort selector', async() =>{
-        const zaSelector = await InventoryTC1.clickZaSelector();
+        const zaSelector = await Inventory.clickZaSelector();
     })
     it('should check Products are sortedas Z-A', async() =>{
-        const productElements = await InventoryTC1.getSortedItems();
+        const productElements = await Inventory.getSortedItems();
         var productNames = [];
                 for (const productElement of productElements){
                     const productName = await productElement.getText();
@@ -52,11 +53,10 @@ describe('saucedemo page', () =>{
                 await expect(productNames).toEqual(sortedProductNames);
     })
     it('should click on the third of Sorting selectors Low to high Price', async() =>{
-        await InventoryTC1.clickLowHighSelector();
+        await Inventory.clickLowHighSelector();
     })
-    //begin cycle for()
     it('should check Products are sorted from Low to High Price', async() =>{
-        const productElements = await InventoryTC1.getPriceSortedItems();
+        const productElements = await Inventory.getPriceSortedItems();
         var productNames = [];
                 for (const productElement of productElements){
                     var productName = await productElement.getText();
@@ -72,10 +72,10 @@ describe('saucedemo page', () =>{
                 await expect(productNames).toEqual(sortedProductNames);
     })
     it('should click on the fourth of Sorting selectors Price high to low', async() =>{
-        await InventoryTC1.clickHighLowSelector();
+        await Inventory.clickHighLowSelector();
     })
     it('should check Products are sorted from high to low price', async() =>{
-        const productElements = await InventoryTC1.getPriceSortedItems();
+        const productElements = await Inventory.getPriceSortedItems();
         var productNames = [];
             for (const productElement of productElements){
                 var productName = await productElement.getText();

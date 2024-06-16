@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class LoginTC1{
+class Login{
 
     get username(){
         return $('#user-name');
@@ -74,4 +74,4 @@ class LoginTC1{
     }
 }
 
-export default new LoginTC1();
+export default new Login();

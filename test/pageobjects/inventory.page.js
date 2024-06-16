@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class InventoryTC1{
+class Inventory{
 
     get product(){
         return $('.inventory_item')  //selector = class name
@@ -20,24 +20,28 @@ class InventoryTC1{
     async clickBurgerButton(){
         (await this.burgerButton).click();
     }
+    //TC4, TC5 - block burger menu is expended
     get bMenu(){
         return $('#menu_button_container > div > div.bm-menu-wrap > div.bm-menu')
     }
      async checkBMenuPresence (){
          return this.bMenu.isDisplayed();
      }
+     //TC4, TC5 - block four items in burger menu
      get fourItems(){
         return $$('a[class="bm-item menu-item"]')
     }
-     async checkFourItemsPresence (){
+    async checkFourItemsPresence (){         
         return await this.fourItems.length
         }
+    //TC4, TC5
     get logoutButton(){
         return $('#logout_sidebar_link')
     }
     async clickLogoutButton(){
         (await this.logoutButton).click();
     }
+    //TC5, TC8
     get addtoCartButton(){
         return $('//*[contains(text(),"Add to cart")]');
         //return $('#add-to-cart')
@@ -47,13 +51,14 @@ class InventoryTC1{
         (await this.addtoCartButton).click();
         return (await browser.$('.inventory_item_name')).getText();
     }
-    
+    //TC8
     async clickAddtoCartButton_1(){
         (await this.addtoCartButton).click();
         const productName = await browser.$('.inventory_item_name').getText();
         const productPrice = await browser.$('.inventory_item_price').getText();
         return [ productName, productPrice ];
     }
+    //TC5, TC8, TC9
     get cartButton(){
         return $('#shopping_cart_container')
     }
@@ -77,7 +82,7 @@ class InventoryTC1{
         return $$('option')
     }
     async getSelectorList(){
-        return await this.selectorOptions;
+        return (await this.selectorOptions);
     }
     get sortedItems(){
         return $$('.inventory_item_name');
@@ -91,6 +96,47 @@ class InventoryTC1{
     async getLinksList(){
         return await this.selectorLinks;
     }
+    //get all selectors option
+    get selector(){
+        return $$('option');
+    }
+    async clickSelector(){
+        await this.selector.click();
+    } 
+
+
+    get azSelector(){
+        return $('option[value="az"]');
+    }
+    async clickAzSelector(){
+        (await this.azSelector).click();
+    } 
+    get zaSelector(){
+        return $('option[value="za"]');
+    }
+    async clickZaSelector(){
+        (await this.zaSelector).click();
+    } 
+    get lohiSelector(){
+        return $('option[value="lohi"]');
+    }
+    async clickLowHighSelector(){
+        (await this.lohiSelector).click();
+    }
+    get hiloSelector(){
+        return $('option[value="hilo"]');
+    }
+    async clickHighLowSelector(){
+        (await this.hiloSelector).click();
+    }
+    get priceSortedItems(){
+        return $$('.inventory_item_price');
+    }
+    async getPriceSortedItems(){
+        return (await this.priceSortedItems);
+    } 
+
+    //TC7
     async checkLinks(arrLinks, i){
         //for (let i=0;i<arrLinks.length;i++){
             const linkItem = arrLinks[i];
@@ -123,36 +169,6 @@ class InventoryTC1{
             }
         //}
     }
-    get azSelector(){
-        return $('option[value="az"]');
-    }
-    async clickAzSelector(){
-        (await this.azSelector).click();
-    } 
-    get zaSelector(){
-        return $('option[value="za"]');
-    }
-    async clickZaSelector(){
-        (await this.zaSelector).click();
-    } 
-    get lohiSelector(){
-        return $('option[value="lohi"]');
-    }
-    async clickLowHighSelector(){
-        (await this.lohiSelector).click();
-    }
-    get hiloSelector(){
-        return $('option[value="hilo"]');
-    }
-    async clickHighLowSelector(){
-        (await this.hiloSelector).click();
-    }
-    get priceSortedItems(){
-        return $$('.inventory_item_price');
-    }
-    async getPriceSortedItems(){
-        return (await this.priceSortedItems);
-    } 
 }
 
-export default new InventoryTC1();
+export default new Inventory();

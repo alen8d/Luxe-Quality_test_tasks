@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class CartTC1{
+class Cart{
 
 
     get productName(){
@@ -34,4 +34,4 @@ class CartTC1{
     }
 }
 
-export default new CartTC1();
+export default new Cart();

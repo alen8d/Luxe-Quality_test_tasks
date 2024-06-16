@@ -1,35 +1,35 @@
 import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
-import LoginTC1 from '../pageobjects/login_TC1.page.js';
-import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
-import CartTC1 from '../pageobjects/cart_TC1.page.js';
+import Login from '../pageobjects/login.page.js';
+import Inventory from '../pageobjects/inventory.page.js';
+import Cart from '../pageobjects/cart.page.js';
 
-before('', async() =>{
-    await LoginTC1.loginFunction('standard_user', 'secret_sauce');
+before('precondition - login', async() =>{
+    await Login.loginFunction('standard_user', 'secret_sauce');
 })
 afterEach('', async() =>{
     await browser.pause(1000);
 })
-describe('saucedemo page', () =>{
+describe('Checkout without products', () =>{
     it('should Click on the "Cart" button at the top right corner', async() =>{
-        await InventoryTC1.clickCartButton(); 
+        await Inventory.clickCartButton(); 
     })
     it('should check Cart page is displayed', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
     })
     it('check products are not displayed ', async() =>{
-        var productList = await CartTC1.getProductList();
+        var productList = await Cart.getProductList();
         await expect(productList).toEqual(0);
     })
     it('should Click on the "Checkout" button', async() =>{
-        await CartTC1.clickCheckoutButton();    
+        await Cart.clickCheckoutButton();    
     })
-    it('should check User is located on the "Cart" Page and if yes check if there is the text "Cart is empty"', async() =>{
+    it('should check User is located on the "Cart" Page"', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
         await browser.pause(1000);
     })
     it('should check if there is the text "Cart is empty"', async() =>{
-        const value = await CartTC1.getCartErrorMessage();
+        const value = await Cart.getCartErrorMessage();
         await expect(value).toBePresent();
     }) 
 })

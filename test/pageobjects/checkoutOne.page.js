@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals'
 
-class CheckoutOneTC1{
+class CheckoutOne{
 
     async generateRandomName() {
         const firstNames = ["John", "Jane", "Alex", "Emily", "Chris", "Katie"];
@@ -60,4 +60,4 @@ class CheckoutOneTC1{
     
 }
 
-export default new CheckoutOneTC1();
+export default new CheckoutOne();

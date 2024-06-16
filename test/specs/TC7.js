@@ -1,26 +1,26 @@
 import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
-import LoginTC1 from '../pageobjects/login_TC1.page.js';
-import InventoryTC1 from '../pageobjects/inventory_TC1.page.js';
+import Login from '../pageobjects/login.page.js';
+import Inventory from '../pageobjects/inventory.page.js';
 
-before('', async() =>{
-    await LoginTC1.loginFunction('standard_user', 'secret_sauce');
+before('precondition - login', async() =>{
+    await Login.loginFunction('standard_user', 'secret_sauce');
 })
 afterEach('', async() =>{
     await browser.pause(1000);
 })
-describe('saucedemo page', () =>{
+describe('Footer Links', () =>{
     let arrLinks;
     it ('should get list of the links',async() =>{
         //get list of links
-        arrLinks = await InventoryTC1.getLinksList();
+        arrLinks = await Inventory.getLinksList();
     })
         console.log('Array with list of links to check'+arrLinks.length);
-        //await InventoryTC1.checkLinks(arrLinks);
+        //await Inventory.checkLinks(arrLinks);
          for (let i=0;i<arrLinks.length;i++){
             it('should get the list of links to check', async() =>{
     
-            await InventoryTC1.checkLinks(arrLinks, i);
+            await Inventory.checkLinks(arrLinks, i);
         })    //                 const linkItem = arrLinks[i];
             const linkItemText = linkItem.getText();
             var linkItemLink = linkItem.getAttribute("href");
