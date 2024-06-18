@@ -4,7 +4,7 @@ import Login from '../pageobjects/login.page.js';
 import Inventory from '../pageobjects/inventory.page.js';
 
 before('precondition - login', async() =>{
-    await Login.loginFunction('standard_user', 'secret_sauce');
+    await Login.loginFunction();
 })
 afterEach('', async() =>{
     await browser.pause(1000);
@@ -19,7 +19,6 @@ describe('Logout', () =>{
     })
     it('should check 4 items are displayed', async() =>{
         const fourItemsPresence = await Inventory.checkFourItemsPresence();
-        //console.log("VALUE = " + fourItemsPresence);
         await expect(fourItemsPresence).toEqual(4);
     })
     it('should click on the "Logout" button', async() =>{
@@ -30,12 +29,10 @@ describe('Logout', () =>{
     })
     it('should check Username field is empty', async() =>{
         const value=await Login.getUserName();
-        // console.log(value.length);
         await expect(value).toHaveLength(0);
     })
     it('should check Password field is empty', async() =>{
         const value=await Login.getPassword();
-        // console.log(value.length);
         await expect(value).toHaveLength(0);
     })
 })

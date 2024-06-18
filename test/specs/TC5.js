@@ -12,6 +12,7 @@ afterEach('', async() =>{
 })
 describe('Saving the card after logout ', () =>{
     var number;
+    //name of the product which was added on the step 1
     var productName;
     it('should define start quantity of products in the cart', async() =>{
         var productNumber = await Inventory.checkProductNumber();
@@ -21,7 +22,6 @@ describe('Saving the card after logout ', () =>{
     })
     it('should click on the "Add to cart" button near any product and save the name of added product', async() =>{
         productName = await Inventory.clickAddtoCartButton();
-        // console.log('11name of the added product = '+productName);
     })
     it('should check Number near the cart at the top right increase by 1', async() =>{
         var newNumber;
@@ -29,16 +29,13 @@ describe('Saving the card after logout ', () =>{
         if(productNumber=="") {newNumber=0;
         } else {newNumber = parseInt(productNumber, 10);
         }var difference = newNumber-number;
-        // console.log('difference = '+difference);
-        await expect(difference).not.toEqual(0);
+        await expect(difference).toEqual(1);
     })
     it('should Click on the "Cart" button at the top right corner', async() =>{
         await Inventory.clickCartButton();    
     })
     it('check product is added to cart ', async() =>{
         var newProductName = await Cart.getProductName();
-        // console.log('22productName = '+productName);
-        // console.log('22newProductName = '+newProductName);
         await expect(newProductName).toEqual(productName);
     })
     it('should click on the "Burger" button at the top left corner', async() =>{
@@ -50,7 +47,6 @@ describe('Saving the card after logout ', () =>{
     })
     it('should check 4 items are displayed', async() =>{
         const fourItemsPresence = await Inventory.checkFourItemsPresence();
-        // console.log("VALUE = " + fourItemsPresence);
         await expect(fourItemsPresence).toEqual(4);
     })
     it('should click on the "Logout" button', async() =>{
@@ -68,7 +64,7 @@ describe('Saving the card after logout ', () =>{
         await expect(value).toHaveLength(0);
     })
     it('should login to the account with the same credentials', async () =>{
-        await Login.loginFunction('standard_user', 'secret_sauce');
+        await Login.loginFunction();
     })
     it('should check user is redirected to the inventory page', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
@@ -89,8 +85,6 @@ describe('Saving the card after logout ', () =>{
     })
     it('should check product are the same as was added at step 1', async() =>{
         const productNameNew = await Cart.getProductName();
-        // console.log('33productName = '+productName);
-        // console.log('33productNameNew = '+productNameNew);
         await expect(productNameNew).toEqual(productName);
     })
 })

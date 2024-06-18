@@ -5,7 +5,7 @@ import Inventory from '../pageobjects/inventory.page.js';
 import Cart from '../pageobjects/cart.page.js';
 
 before('precondition - login', async() =>{
-    await Login.loginFunction('standard_user', 'secret_sauce');
+    await Login.loginFunction();
 })
 afterEach('', async() =>{
     await browser.pause(1000);

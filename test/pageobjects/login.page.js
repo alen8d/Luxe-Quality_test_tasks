@@ -31,18 +31,21 @@ class Login{
     get loginButton(){
         return $('#login-button');
     }
+    //press login button
     async clickLoginButton(){
         (await this.loginButton).click();
     }
     get xIconsUsername(){
         return $('#login_button_container > div > form > div:nth-child(1) > svg > path');
     }
+    //check appearance xIcon near username field
     async displayedXIconsUsername(){
         return (await this.xIconsUsername).isDisplayed();
     }
     get xIconsPassword(){
         return $('#login_button_container > div > form > div:nth-child(2) > svg');
     }
+    //check appearance xIcon near password field
     async displayedXIconsPassword(){
         return (await this.xIconsPassword).isDisplayed();
     }
@@ -57,20 +60,20 @@ class Login{
     get errorMessage(){
         return $('#login_button_container > div > form > div.error-message-container.error > h3');
     }
+    //get error message in case wrong credentials
     async getErrorMessage(){
         return (await this.errorMessage).getText();
     }
-
-    async loginFunction(userName, userPassword){
+    //login function for TC4, TC5, TC6, TC7, TC8, TC9
+    async loginFunction(){
         await browser.url('https://www.saucedemo.com');
-        const username = userName;
+        const username = 'standard_user';
         await this.setUserName(username);
         await browser.pause(0);
-        const password = userPassword;
+        const password = 'secret_sauce';
         await this.setPassword(password);
         await browser.pause(0);
         await this.clickLoginButton();
-    
     }
 }
 

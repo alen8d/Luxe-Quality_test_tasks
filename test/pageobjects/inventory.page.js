@@ -65,109 +65,164 @@ class Inventory{
     async clickCartButton(){
         (await this.cartButton).click();
     }
-    get productNumber(){
-        return $('#shopping_cart_container')
-        //return $('.shopping_cart_badge')
-    }
-    async checkProductNumber(){
-        return (await this.productNumber).getText();
-    }
+//check is it used !!!!!!!!!!!
+    // get productNumber(){
+    //     return $('#shopping_cart_container')
+    //     //return $('.shopping_cart_badge')
+    // }
+    // async checkProductNumber(){
+    //     return (await this.productNumber).getText();
+    // }
+
     get sortSelectorButton(){
         return $('.product_sort_container')
     }
     async clickSortSelectorButton(){
         (await this.sortSelectorButton).click();
     }
-    get selectorOptions(){
-        return $$('option')
+    //check is it used !!!!!!!!!!!!!!!!
+    // get selectorOptions(){
+    //     return $$('option')
+    // }
+    // async getSelectorList(){
+    //     return (await this.selectorOptions);
+    // }
+    //TC7 -click on the first link
+    get selectorLinkTwitter(){
+        //return $('#page_wrapper > footer > ul > li.social_twitter > a')
+        return $('a[target]')
     }
-    async getSelectorList(){
-        return (await this.selectorOptions);
+    async clickTwitterLink(){
+        (await this.selectorLinkTwitter).click();
     }
+    async getTwitterAddr(){
+        return (await this.selectorLinkTwitter).getAttribute('href');
+    }
+    async getTwitterText(){
+        return (await this.selectorLinkTwitter).getText();
+    }
+    //TC7 click on the link FACEBOOK
+    get selectorLinkFacebook(){
+        return $('#page_wrapper > footer > ul > li.social_facebook > a')
+    }
+    async clickFacebookLink(){
+        (await this.selectorLinkFacebook).click();
+    }
+    async getFacebookAddr(){
+        return (await this.selectorLinkFacebook).getAttribute('href');
+    }
+    async getFacebookText(){
+        return (await this.selectorLinkFacebook).getText();
+    }
+     //TC7 click on the link linkedin
+    get selectorLinkLinkedin(){
+        return $('#page_wrapper > footer > ul > li.social_linkedin > a')
+    }
+    async clickLinkedinLink(){
+        (await this.selectorLinkLinkedin).click();
+    }
+    async getLinkedinAddr(){
+        return (await this.selectorLinkLinkedin).getAttribute('href');
+    }
+    async getLinkedinText(){
+        return (await this.selectorLinkLinkedin).getText();
+    }
+
+
+    //check is it used !!!!!!!!!!!!! get all selectors option
+    // get selector(){
+    //     return $$('option');
+    // }
+    // async clickSelector(){
+    //     await this.selector.click();
+    // } 
+    // TC6
+    get azSelector(){
+        return $('option[value="az"]');
+    }
+    async clickAzSelector(){
+        (await this.azSelector).click();
+        return await this.azSelector.getValue();
+    } 
+    // TC6
+    get zaSelector(){
+        return $('option[value="za"]');
+    }
+    async clickZaSelector(){
+        (await this.zaSelector).click();
+        return await this.zaSelector.getValue();
+    } 
+    // TC6
+    get lohiSelector(){
+        return $('option[value="lohi"]');
+    }
+    async clickLowHighSelector(){
+        (await this.lohiSelector).click();
+        return await this.lohiSelector.getValue();
+    }
+    // TC6
+    get hiloSelector(){
+        return $('option[value="hilo"]');
+    }
+    async clickHighLowSelector(){
+        (await this.hiloSelector).click();
+        return await this.hiloSelector.getValue();
+    }
+    //TC6 - for function checkSortingFunction
     get sortedItems(){
         return $$('.inventory_item_name');
     }
     async getSortedItems(){
         return (await this.sortedItems);
     }
-    get selectorLinks(){
-        return $$('a[target="_blank"]')
-    }
-    async getLinksList(){
-        return await this.selectorLinks;
-    }
-    //get all selectors option
-    get selector(){
-        return $$('option');
-    }
-    async clickSelector(){
-        await this.selector.click();
-    } 
-
-
-    get azSelector(){
-        return $('option[value="az"]');
-    }
-    async clickAzSelector(){
-        (await this.azSelector).click();
-    } 
-    get zaSelector(){
-        return $('option[value="za"]');
-    }
-    async clickZaSelector(){
-        (await this.zaSelector).click();
-    } 
-    get lohiSelector(){
-        return $('option[value="lohi"]');
-    }
-    async clickLowHighSelector(){
-        (await this.lohiSelector).click();
-    }
-    get hiloSelector(){
-        return $('option[value="hilo"]');
-    }
-    async clickHighLowSelector(){
-        (await this.hiloSelector).click();
-    }
+    //TC6 - for function checkSortingFunction
     get priceSortedItems(){
         return $$('.inventory_item_price');
     }
     async getPriceSortedItems(){
         return (await this.priceSortedItems);
     } 
-
-    //TC7
-    async checkLinks(arrLinks, i){
-        //for (let i=0;i<arrLinks.length;i++){
-            const linkItem = arrLinks[i];
-            const linkItemText = await linkItem.getText();
-            var linkItemLink = await linkItem.getAttribute("href");
-            //console.log('Link = '+linkItemLink);
-            //console.log(`Menu Item ${i + 1}: ${linkItemText}`);
-            //get list of all opened tabs            
-            const initialWindowHandles = await browser.getWindowHandles();
-            // Perform click on the menu item, e.g., click
-            //it('Perform click on the menu item', async() =>{
-            await linkItem.click();
-            await browser.pause(2000);
-            //})
-            //get updated list of all opened tabs 
-            const updatedWindowHandles = await browser.getWindowHandles();
-            // Find the new tab handle
-            const newWindowHandle = updatedWindowHandles.find(handle => !initialWindowHandles.includes(handle));
-            
-            if (newWindowHandle) {
-                // Switch to the new tab
-                await browser.switchToWindow(newWindowHandle);
-                // Verify the URL
-                const newTabUrl = await browser.getUrl();
-                if(linkItemText=='Twitter') linkItemLink='https://x.com/saucelabs'
-                await expect(newTabUrl).toContain(linkItemLink);
-                await browser.switchToWindow(initialWindowHandles[0]);
-            } else {
-                console.error('No new tab was opened.');
-            }
-        //}
+    // TC6 - function to check sorting
+    async checkSortingFunction(optionValue){
+        if (optionValue=='lohi' ||optionValue=='hilo'){
+             var productElements = await this.getPriceSortedItems();}
+            else {var productElements = await this.getSortedItems();}
+        //create array
+        var productNames=[];
+        var sortedProductNames;
+        //filling the array with products
+                for (const productElement of productElements){
+                    var productName = await productElement.getText();
+                    //productName = productName.toString();
+                    if (optionValue=='lohi' || optionValue=='hilo'){
+                    productName = productName.replace(/\$/g, '');
+                    productName = parseFloat(productName, 10);
+                    }
+                    productNames.push(productName);
+                }
+                sortedProductNames = productNames;
+                productNames = productNames.toString();
+                console.log('productNames :' +productNames);
+                //sort the array and convert to string for comparing
+                //sortedProductNames = sortedProductNames.sort().toString();
+                switch (optionValue) {
+                    case 'az':
+                        sortedProductNames = sortedProductNames.sort().toString();
+                      break;
+                    case 'za':
+                        sortedProductNames = sortedProductNames.sort();
+                        sortedProductNames = sortedProductNames.reverse().toString();
+                      break;
+                    case 'lohi':
+                        sortedProductNames = sortedProductNames.sort((a,b) =>a-b).toString();
+                      break;
+                    case 'hilo':
+                        sortedProductNames = sortedProductNames.sort((a,b) =>b-a).toString();
+                      break;
+                    }
+                console.log('productNames :' +productNames);
+                console.log('sortedProductNames :' +sortedProductNames);
+                await expect(productNames).toEqual(sortedProductNames);
     }
 }
 
