@@ -3,9 +3,10 @@ import { expect } from '@wdio/globals'
 import Login from '../pageobjects/login.page.js';
 import Inventory from '../pageobjects/inventory.page.js';
 import Cart from '../pageobjects/cart.page.js';
+import { loginFunction } from '../utils/helpers.js';
 
 before('precondition - login', async() =>{
-    await Login.loginFunction('standard_user', 'secret_sauce');
+    await loginFunction();
 })
 afterEach('', async() =>{
     await browser.pause(1000);
@@ -64,7 +65,7 @@ describe('Saving the card after logout ', () =>{
         await expect(value).toHaveLength(0);
     })
     it('should login to the account with the same credentials', async () =>{
-        await Login.loginFunction();
+        await loginFunction();
     })
     it('should check user is redirected to the inventory page', async() =>{
         await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');

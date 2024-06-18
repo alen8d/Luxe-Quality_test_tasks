@@ -1,11 +1,12 @@
 import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
-import Login from '../pageobjects/login.page.js';
+//import Login from '../pageobjects/login.page.js';
 import Inventory from '../pageobjects/inventory.page.js';
 import Cart from '../pageobjects/cart.page.js';
+import { loginFunction } from '../utils/helpers.js';
 
 before('precondition - login', async() =>{
-    await Login.loginFunction();
+    await loginFunction();
 })
 afterEach('', async() =>{
     await browser.pause(1000);

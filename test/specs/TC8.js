@@ -6,9 +6,10 @@ import Cart from '../pageobjects/cart.page.js';
 import CheckoutOne from '../pageobjects/checkoutOne.page.js';
 import CheckoutTwo from '../pageobjects/checkoutTwo.page.js';
 import CheckoutComplete from '../pageobjects/checkoutComplete.page.js';
+import { loginFunction } from '../utils/helpers.js';
 
 before('precondition - login', async() =>{
-    await Login.loginFunction();
+    await loginFunction();
 })
 afterEach('', async() =>{
     await browser.pause(1000);

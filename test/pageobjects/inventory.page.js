@@ -66,13 +66,14 @@ class Inventory{
         (await this.cartButton).click();
     }
 //check is it used !!!!!!!!!!!
-    // get productNumber(){
-    //     return $('#shopping_cart_container')
-    //     //return $('.shopping_cart_badge')
-    // }
-    // async checkProductNumber(){
-    //     return (await this.productNumber).getText();
-    // }
+    // TC5
+    get productNumber(){
+        return $('#shopping_cart_container')
+        //return $('.shopping_cart_badge')
+    }
+    async checkProductNumber(){
+        return (await this.productNumber).getText();
+    }
 
     get sortSelectorButton(){
         return $('.product_sort_container')
@@ -89,8 +90,8 @@ class Inventory{
     // }
     //TC7 -click on the first link
     get selectorLinkTwitter(){
-        //return $('#page_wrapper > footer > ul > li.social_twitter > a')
-        return $('a[target]')
+        return $('#page_wrapper > footer > ul > li.social_twitter > a')
+        //return $('a[target]')
     }
     async clickTwitterLink(){
         (await this.selectorLinkTwitter).click();
@@ -98,9 +99,9 @@ class Inventory{
     async getTwitterAddr(){
         return (await this.selectorLinkTwitter).getAttribute('href');
     }
-    async getTwitterText(){
-        return (await this.selectorLinkTwitter).getText();
-    }
+    // async getTwitterText(){
+    //     return (await this.selectorLinkTwitter).getText();
+    // }
     //TC7 click on the link FACEBOOK
     get selectorLinkFacebook(){
         return $('#page_wrapper > footer > ul > li.social_facebook > a')
@@ -111,9 +112,9 @@ class Inventory{
     async getFacebookAddr(){
         return (await this.selectorLinkFacebook).getAttribute('href');
     }
-    async getFacebookText(){
-        return (await this.selectorLinkFacebook).getText();
-    }
+    // async getFacebookText(){
+    //     return (await this.selectorLinkFacebook).getText();
+    // }
      //TC7 click on the link linkedin
     get selectorLinkLinkedin(){
         return $('#page_wrapper > footer > ul > li.social_linkedin > a')
@@ -124,9 +125,9 @@ class Inventory{
     async getLinkedinAddr(){
         return (await this.selectorLinkLinkedin).getAttribute('href');
     }
-    async getLinkedinText(){
-        return (await this.selectorLinkLinkedin).getText();
-    }
+    // async getLinkedinText(){
+    //     return (await this.selectorLinkLinkedin).getText();
+    // }
 
 
     //check is it used !!!!!!!!!!!!! get all selectors option
@@ -182,48 +183,5 @@ class Inventory{
     async getPriceSortedItems(){
         return (await this.priceSortedItems);
     } 
-    // TC6 - function to check sorting
-    async checkSortingFunction(optionValue){
-        if (optionValue=='lohi' ||optionValue=='hilo'){
-             var productElements = await this.getPriceSortedItems();}
-            else {var productElements = await this.getSortedItems();}
-        //create array
-        var productNames=[];
-        var sortedProductNames;
-        //filling the array with products
-                for (const productElement of productElements){
-                    var productName = await productElement.getText();
-                    //productName = productName.toString();
-                    if (optionValue=='lohi' || optionValue=='hilo'){
-                    productName = productName.replace(/\$/g, '');
-                    productName = parseFloat(productName, 10);
-                    }
-                    productNames.push(productName);
-                }
-                sortedProductNames = productNames;
-                productNames = productNames.toString();
-                console.log('productNames :' +productNames);
-                //sort the array and convert to string for comparing
-                //sortedProductNames = sortedProductNames.sort().toString();
-                switch (optionValue) {
-                    case 'az':
-                        sortedProductNames = sortedProductNames.sort().toString();
-                      break;
-                    case 'za':
-                        sortedProductNames = sortedProductNames.sort();
-                        sortedProductNames = sortedProductNames.reverse().toString();
-                      break;
-                    case 'lohi':
-                        sortedProductNames = sortedProductNames.sort((a,b) =>a-b).toString();
-                      break;
-                    case 'hilo':
-                        sortedProductNames = sortedProductNames.sort((a,b) =>b-a).toString();
-                      break;
-                    }
-                console.log('productNames :' +productNames);
-                console.log('sortedProductNames :' +sortedProductNames);
-                await expect(productNames).toEqual(sortedProductNames);
-    }
 }
-
 export default new Inventory();
