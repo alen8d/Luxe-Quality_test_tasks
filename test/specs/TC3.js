@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
 import Login from '../pageobjects/login.page.js';
 

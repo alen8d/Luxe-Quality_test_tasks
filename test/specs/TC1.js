@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals'
 import { expect } from '@wdio/globals'
 import Login from '../pageobjects/login.page.js';
 import Inventory from '../pageobjects/inventory.page.js';
@@ -27,7 +26,6 @@ describe('Valid Login', () =>{
     it('should check data is reprresented as dots instead of characters', async() =>{
         const value = await Login.getPasswordFieldType();
         await expect(value).toEqual('password')
-        //console.log('password value = '+value)
     })
     it('should click Login Button', async() =>{
         await Login.clickLoginButton();

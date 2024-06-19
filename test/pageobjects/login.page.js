@@ -58,23 +58,13 @@ class Login{
         return value.parsed.hex;
     }
     get errorMessage(){
-        return $('#login_button_container > div > form > div.error-message-container.error > h3');
+        // return $('#login_button_container > div > form > div.error-message-container.error > h3');
+        return $('#login_button_container > div > form > div.error-message-container.error');
     }
     //get error message in case wrong credentials
     async getErrorMessage(){
         return (await this.errorMessage).getText();
     }
-    // //login function for TC4, TC5, TC6, TC7, TC8, TC9
-    // async loginFunction(){
-    //     await browser.url('https://www.saucedemo.com');
-    //     const username = 'standard_user';
-    //     await this.setUserName(username);
-    //     await browser.pause(0);
-    //     const password = 'secret_sauce';
-    //     await this.setPassword(password);
-    //     await browser.pause(0);
-    //     await this.clickLoginButton();
-    // }
 }
 
 export default new Login();

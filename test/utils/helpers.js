@@ -32,9 +32,7 @@ export async function checkSortingFunction(optionValue){
             }
             sortedProductNames = productNames;
             productNames = productNames.toString();
-            // console.log('productNames :' +productNames);
             //sort the array and convert to string for comparing
-            //sortedProductNames = sortedProductNames.sort().toString();
             switch (optionValue) {
                 case 'az':
                     sortedProductNames = sortedProductNames.sort().toString();
@@ -85,4 +83,14 @@ export async function checkLinkFunction(value){
     var newTabUrlSauce1 = newTabUrl.includes('saucelabs');
     var newTabUrlSauce2 = newTabUrl.includes('sauce-labs');
     await expect(newTabUrlSauce1 || newTabUrlSauce2).toBe(true);
+}
+
+//login function for TC10 - login function with different negative values of userName and password
+export async function loginFunctionNegativeCheck(username, password){
+    await browser.url('https://www.saucedemo.com');
+    await Login.setUserName(username);
+    await browser.pause(0);
+    await Login.setPassword(password);
+    await browser.pause(0);
+    await Login.clickLoginButton();
 }
